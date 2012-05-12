@@ -10,7 +10,7 @@ LT_PREREQ([2.2])
 LT_INIT([dlopen])
 
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_SRCDIR([src/rxcpp.cpp])
+AC_CONFIG_SRCDIR([inc/rxcpp.hh])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -209,7 +209,6 @@ then
 fi
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile
                  inc/Makefile
                  libs/Makefile
                  libs/boost-test-helper/Makefile
