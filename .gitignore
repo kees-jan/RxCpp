@@ -31,3 +31,4 @@ Makefile.in
 /doc/
 test_results.xml
 /libs/boost-test-helper/test/tests
+/libs/rxcpp/test/tests

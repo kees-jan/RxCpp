@@ -1,1 +1,1 @@
-SUBDIRS=boost-test-helper
+SUBDIRS=boost-test-helper rxcpp

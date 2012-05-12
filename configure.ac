@@ -215,6 +215,9 @@ AC_CONFIG_FILES([Makefile
                  libs/boost-test-helper/Makefile
                  libs/boost-test-helper/src/Makefile
                  libs/boost-test-helper/test/Makefile
+                 libs/rxcpp/Makefile
+                 libs/rxcpp/src/Makefile
+                 libs/rxcpp/test/Makefile
                  doxyfile
 ])
 

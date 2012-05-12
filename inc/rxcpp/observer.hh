@@ -9,6 +9,8 @@ namespace RxCpp
     virtual void onNext(const T& value)=0;
     virtual void onCompleted()=0;
     virtual void onError(std::exception& e)=0;
+
+    virtual ~IObserver() {}
   };
 }
 #endif
