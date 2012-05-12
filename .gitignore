@@ -30,3 +30,4 @@ Makefile.in
 /stamp-h1
 /doc/
 test_results.xml
+/libs/boost-test-helper/test/tests

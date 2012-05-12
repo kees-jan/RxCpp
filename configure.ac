@@ -35,7 +35,7 @@ SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Wuninitialized])
 SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Winit-self])
 SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Wcast-qual])
 SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Wswitch-enum])
-SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Weffc++])
+# SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Weffc++])
 SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Wold-style-cast])
 SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Wfloat-equal])
 SCROOM_ADD_CXXFLAGS_IF_SUPPORTED([-Wnon-virtual-dtor])
@@ -211,6 +211,10 @@ fi
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  inc/Makefile
+                 libs/Makefile
+                 libs/boost-test-helper/Makefile
+                 libs/boost-test-helper/src/Makefile
+                 libs/boost-test-helper/test/Makefile
                  doxyfile
 ])
 
