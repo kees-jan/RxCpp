@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include <rxcpp/observable.hh>
+
 using namespace std;
 
 int main(void) {

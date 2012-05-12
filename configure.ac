@@ -1,5 +1,5 @@
 AC_PREREQ([2.64])
-AC_INIT([Scroom],
+AC_INIT([RxCpp],
         m4_esyscmd([build-aux/git-version-gen | tr -d '\n']),
         [http://fuzzy.homedns.org/trac/scroom/newticket],
         [rxcpp],
@@ -143,7 +143,7 @@ boost_futures_include_flags=""
 if test "x${have_boost_futures}" = xyes
 then
   AC_DEFINE([BOOST_FUTURES], 1, [Use futures from the Boost library release])
-AC_SUBST([BOOST_FUTURES_CPPFLAGS], [$boost_futures_include_flags])
+fi
 AM_CONDITIONAL([BOOST_FUTURES], [test x$have_boost_futures = xyes])
 
 if test "x${have_boost_thread_headers}" = xno
