@@ -21,8 +21,16 @@
 #endif
 
 #include <list>
+#include <typeinfo>
+#include <iostream>
 
 #include <boost/test/unit_test.hpp>
+#include <boost/foreach.hpp>
+#include <boost/function.hpp>
+
+#include <rxcpp.hh>
+
+using namespace RxCpp;
 
 //////////////////////////////////////////////////////////////
 
@@ -33,7 +41,7 @@ BOOST_AUTO_TEST_CASE(with_lambdas)
   std::list<int> values = {1, 2, 3, 4, 5};
   int sum = 0;
 
-  source(values) >> ([&sum](int x){sum+=x;});
+  source(values) >> target<int>([&sum](int x){sum+=x;});
 
   BOOST_CHECK_EQUAL(15, sum);
 }

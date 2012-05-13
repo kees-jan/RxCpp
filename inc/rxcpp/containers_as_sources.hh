@@ -16,46 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef OBSERVABLE_HH
-#define OBSERVABLE_HH
+#ifndef CONTAINERS_AS_SOURCES_HH
+#define CONTAINERS_AS_SOURCES_HH
 
-#include <boost/shared_ptr.hpp>
-
-#include <rxcpp/observer.hh>
+#include <rxcpp/observable.hh>
 
 namespace RxCpp
 {
-  template<typename T>
-  class IObservable
+
+  template<typename ContainerType>
+  typename IObservable<typename ContainerType::value_type>::Ptr source(ContainerType container)
   {
-  public:
-    typedef boost::shared_ptr<IObservable<T> > Ptr;
-
-  public:
-    virtual void subscribe(typename IObserver<T>::Ptr observer)=0;
-
-    virtual ~IObservable() {}
-  };
-
-  template<typename T>
-  class IComposable
-  {
-  public:
-    typedef boost::shared_ptr<IComposable<T> > Ptr;
-
-  public:
-    virtual void connect(typename IObservable<T>::Ptr observable)=0;
-
-    virtual ~IComposable() {}
-  };
-
-  template<typename T>
-  class IComposableObserver : public IObserver<T>, public IComposable<T>
-  {
-  public:
-    typedef boost::shared_ptr<IComposableObserver<T> > Ptr;
-  };
-
+    ((void)container);
+    return typename IObservable<typename ContainerType::value_type>::Ptr();
+  }
 }
+
 
 #endif
