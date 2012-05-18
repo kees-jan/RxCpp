@@ -5,5 +5,5 @@ nobase_include_HEADERS = \
 	rxcpp/containers_as_sources.hh \
 	rxcpp/connections.hh \
 	rxcpp/targets.hh \
-	rxcpp/shared_from_this
+	rxcpp/shared_from_this.hh
 
