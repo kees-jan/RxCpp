@@ -25,11 +25,54 @@
 
 namespace RxCpp
 {
-
-  template<typename T>
-  typename IObserver<T>::Ptr target(boost::function<void(T)>)
+  namespace Detail
   {
-    return typename IObserver<T>::Ptr();
+    template<typename T>
+    class Target : public IComposableObserver<T>
+    {
+    private:
+      boost::function<void(const T&)> onNextFunc;
+      boost::function<void(void)> onCompletedFunc;
+      boost::function<void(std::exception& e)> onErrorFunc;
+      typename IObservable<T>::Ptr observable;
+
+    public:
+      Target(boost::function<void(const T&)> onNextFunc,
+             boost::function<void(void)> onCompletedFunc,
+             boost::function<void(std::exception& e)> onErrorFunc)
+        : onNextFunc(onNextFunc), onCompletedFunc(onCompletedFunc), onErrorFunc(onErrorFunc)
+      {}
+
+      static typename IComposableObserver<T>::Ptr create(boost::function<void(const T&)> onNextFunc,
+                                                         boost::function<void(void)> onCompletedFunc,
+                                                         boost::function<void(std::exception& e)> onErrorFunc)
+      { return typename IComposableObserver<T>::Ptr(new Target(onNextFunc, onCompletedFunc, onErrorFunc)); }
+      
+    
+      // IObserver ///////////////////////////////////////////////////////////
+      virtual void onNext(const T& value) { onNextFunc(value); }
+      virtual void onCompleted() { onCompletedFunc(); }
+      virtual void onError(std::exception& e) { onErrorFunc(e); }
+    
+      // IComposable /////////////////////////////////////////////////////////
+      virtual void connect(typename IObservable<T>::Ptr observable)
+      {
+        this->observable = observable;
+        // observable->subscribe(shared_from_this<IObserver<T> >());
+      }
+    };
+  }
+  
+  namespace
+  {
+    void dummyOnCompleted() {}
+    void dummyOnError(std::exception&) {}
+  }
+    
+  template<typename T>
+  typename IComposableObserver<T>::Ptr onNext(boost::function<void(T)> onNextFunc)
+  {
+    return Detail::Target<T>::create(onNextFunc, dummyOnCompleted, dummyOnError);
   }
 }
 

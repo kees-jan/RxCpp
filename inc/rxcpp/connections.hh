@@ -24,10 +24,9 @@
 namespace RxCpp
 {
   template<typename T>
-  boost::shared_ptr<IObserver<T> > operator>>(boost::shared_ptr<IObservable<T> > source, boost::shared_ptr<IObserver<T> > target)
+  void operator>>(boost::shared_ptr<IObservable<T> > source, boost::shared_ptr<IComposableObserver<T> > target)
   {
-    ((void)source);
-    return target;
+    target->connect(source);
   }
 }
 
