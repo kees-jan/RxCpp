@@ -19,16 +19,43 @@
 #ifndef CONTAINERS_AS_SOURCES_HH
 #define CONTAINERS_AS_SOURCES_HH
 
+#include <boost/foreach.hpp>
+
 #include <rxcpp/observable.hh>
 
 namespace RxCpp
 {
+  namespace Detail
+  {
+    template<typename ContainerType>
+    class ContainerAsSource : public IObservable<typename ContainerType::value_type>
+    {
+    private:
+      ContainerType& container;
+      
+    public:
+      ContainerAsSource(ContainerType& container)
+        :container(container)
+      {}
+
+      static typename IObservable<typename ContainerType::value_type>::Ptr create(ContainerType& container)
+      { return typename IObservable<typename ContainerType::value_type>::Ptr(new ContainerAsSource(container)); }
+
+      // IObservable /////////////////////////////////////////////////////////
+      virtual void subscribe(typename IObserver<typename ContainerType::value_type>::Ptr observer)
+      {
+        BOOST_FOREACH(typename ContainerType::value_type element, container)
+          observer->onNext(element);
+        observer->onCompleted();
+      }
+    };
+  }
+  
 
   template<typename ContainerType>
   typename IObservable<typename ContainerType::value_type>::Ptr source(ContainerType container)
   {
-    ((void)container);
-    return typename IObservable<typename ContainerType::value_type>::Ptr();
+    return Detail::ContainerAsSource<ContainerType>::create(container);
   }
 }
 
