@@ -4,5 +4,6 @@ nobase_include_HEADERS = \
 	rxcpp/observable.hh \
 	rxcpp/containers_as_sources.hh \
 	rxcpp/connections.hh \
-	rxcpp/targets.hh
+	rxcpp/targets.hh \
+	rxcpp/shared_from_this
 

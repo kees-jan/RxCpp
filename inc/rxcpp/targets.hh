@@ -22,13 +22,14 @@
 #include <boost/function.hpp>
 
 #include <rxcpp/observer.hh>
+#include <rxcpp/shared_from_this.hh>
 
 namespace RxCpp
 {
   namespace Detail
   {
     template<typename T>
-    class Target : public IComposableObserver<T>
+    class Target : public IComposableObserver<T>, public virtual RxCpp::SharedFromThis::Base
     {
     private:
       boost::function<void(const T&)> onNextFunc;
@@ -58,7 +59,7 @@ namespace RxCpp
       virtual void connect(typename IObservable<T>::Ptr observable)
       {
         this->observable = observable;
-        // observable->subscribe(shared_from_this<IObserver<T> >());
+        observable->subscribe(shared_from_this<IObserver<T> >());
       }
     };
   }
